@@ -1,0 +1,28 @@
+userinfo:
+  age: 25
+  name: roy
+  active: true
+  created-date: 2018/03/31 16:54:30
+  #created-date: 2020-11-21
+  map: {k1: v1,k2: v2}
+  hobbies:
+    - one
+    - two
+    - three
+
+logging:
+  level:
+    root: info
+#    com.roy.controller: info
+#  config: classpath:logback-spring.xml
+#  pattern:
+#    console: '%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger{50}- %msg%n'
+#    file: '%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n'
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm
+    time-zone: GMT+8
+
+
+
+

@@ -1,0 +1,11 @@
+userinfo1:
+  age: 25
+  name: roy
+  active: true
+  created-date: 2018/03/31 16:54:30
+  #created-date: 2020-11-21
+  map: {k1: v1,k2: v2}
+  hobbies:
+    - one
+    - two
+    - three
