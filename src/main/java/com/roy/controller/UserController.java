@@ -1,5 +1,6 @@
 package com.roy.controller;
 
+import com.roy.annotation.ReqLog;
 import com.roy.entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +19,14 @@ import java.util.Date;
 @RequestMapping("/user")
 public class UserController {
     @GetMapping("/{id}")
-    public Object getById(@PathVariable("id") String id){
+    @ReqLog
+    public Object getById(@PathVariable("id") String id) throws Exception {
         return User.builder()
                 .id(id)
-                .name("不才陈某")
+                .name("roy")
                 .age(18)
                 .birthday(new Date())
                 .build();
+
     }
 }
