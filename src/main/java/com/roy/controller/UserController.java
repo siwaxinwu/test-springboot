@@ -21,6 +21,9 @@ public class UserController {
     @GetMapping("/{id}")
     @ReqLog
     public Object getById(@PathVariable("id") String id) throws Exception {
+	    if (1 == 1){
+		    throw new Exception("are you ok");
+	    }
         return User.builder()
                 .id(id)
                 .name("roy")

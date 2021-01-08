@@ -42,34 +42,32 @@ public class RequestLogAspect {
 	}
 
 	@Around("reqLog()")
-	public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+	public Object doAround(ProceedingJoinPoint pjt) throws Throwable {
 
 		long start = System.currentTimeMillis();
 
 		//获取请求
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = attributes.getRequest();
-		if (1 == 1){
-			throw new Exception("are you ok");
-		}
-		Object result = proceedingJoinPoint.proceed();
+
+		Object result = pjt.proceed();
 
 		RequestInfo requestInfo = new RequestInfo();
 		requestInfo.setIp(request.getRemoteAddr());
 		requestInfo.setUrl(request.getRequestURL().toString());
 		requestInfo.setHttpMethod(request.getMethod());
-		requestInfo.setClassMethod(String.format("%s.%s", proceedingJoinPoint.getSignature().getDeclaringTypeName(),
-			proceedingJoinPoint.getSignature().getName()));
-		requestInfo.setRequestParams(getRequestParamsByProceedingJoinPoint(proceedingJoinPoint));
+		requestInfo.setClassMethod(String.format("%s.%s", pjt.getSignature().getDeclaringTypeName(),
+			pjt.getSignature().getName()));
+		requestInfo.setRequestParams(getRequestParamsByProceedingJoinPoint(pjt));
 		requestInfo.setResult(result);
 		requestInfo.setTimeCost(System.currentTimeMillis() - start);
 		logger.info("Request Info : {}", JSON.toJSONString(requestInfo));
 		return result;
 	}
 
-
+	//服务降级
 	@AfterThrowing(pointcut = "reqLog()", throwing = "e")
-	public void doAfterThrow(JoinPoint joinPoint, RuntimeException e) {
+	public void doAfterThrow(JoinPoint joinPoint, Exception e) {
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = attributes.getRequest();
 
@@ -86,15 +84,15 @@ public class RequestLogAspect {
 
 	/**
 	 * 获取入参
-	 * @param proceedingJoinPoint
+	 * @param pjt
 	 *
 	 * @return
 	 * */
-	private Map<String, Object> getRequestParamsByProceedingJoinPoint(ProceedingJoinPoint proceedingJoinPoint) {
+	private Map<String, Object> getRequestParamsByProceedingJoinPoint(ProceedingJoinPoint pjt) {
 		//参数名
-		String[] paramNames = ((MethodSignature)proceedingJoinPoint.getSignature()).getParameterNames();
+		String[] paramNames = ((MethodSignature)pjt.getSignature()).getParameterNames();
 		//参数值
-		Object[] paramValues = proceedingJoinPoint.getArgs();
+		Object[] paramValues = pjt.getArgs();
 
 		return buildRequestParam(paramNames, paramValues);
 	}

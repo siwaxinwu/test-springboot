@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Autowired
+   /* @Autowired(required = false)
     private RepeatSubmitInterceptor repeatSubmitInterceptor;
 
     @Override
@@ -23,5 +23,5 @@ public class WebConfig implements WebMvcConfigurer {
         //不拦截的uri
         final String[] commonExclude = {"/error", "/files/**"};
         registry.addInterceptor(repeatSubmitInterceptor).excludePathPatterns(commonExclude);
-    }
+    }*/
 }

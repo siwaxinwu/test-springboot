@@ -25,7 +25,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  * date：created in 12:09 2020/11/22
  * history:
  */
-@RestControllerAdvice
+//@RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
 

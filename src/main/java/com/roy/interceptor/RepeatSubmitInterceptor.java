@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * date：created in 0:12 2020/11/22
  * history:
  */
-@Component
+//@Component
 public class RepeatSubmitInterceptor implements HandlerInterceptor {
 
     /**
